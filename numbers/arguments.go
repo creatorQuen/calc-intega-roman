@@ -1,32 +1,39 @@
 package numbers
 
-import "strings"
+import (
+	"errors"
+	"strings"
+)
 
-func SeparteArgumentsByOperand(str string) []string {
+func SeparteArgumentsByOperator(str string) ([]string, error) {
 	result := strings.ReplaceAll(str, " ", "")
-	operand := findOperand(str)
+	operator, err := findOperator(str)
 
-	if operand == 0 {
-		return nil
+	if err != nil {
+		return nil, err
 	}
 
-	arguments := strings.Split(result, string(operand))
-	return append(arguments, string(operand))
+	arguments := strings.Split(result, string(operator))
+	return append(arguments, string(operator)), nil
 
 }
 
-func findOperand(str string) rune {
-	var operand rune
+func findOperator(str string) (rune, error) {
+	var operator rune
+	countOper := 0
 	//sliceOperands := []string{"+", "-", "*", "/"}
-	sliceOperands := []rune{'+', '-', '*', '/'}
+	sliceOperators := []rune{'+', '-', '*', '/'}
 	for _, v := range str {
-		for _, vv := range sliceOperands {
-			if v == rune(vv) {
-				operand = vv
-				return operand
+		for _, vv := range sliceOperators {
+			if v == vv {
+				countOper++
+				if countOper == 2 {
+					return 0, errors.New("too much operators")
+				}
+				operator = vv
 			}
 		}
 	}
 
-	return 0
+	return operator, nil
 }
