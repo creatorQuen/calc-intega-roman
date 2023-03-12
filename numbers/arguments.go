@@ -1,12 +1,12 @@
 package numbers
 
 import (
-	"errors"
+	"calc-intega-roman/lib"
 	"strings"
 )
 
 func CheckArgumentsFromOneToTen(num1 int, num2 int) bool {
-	if num1 <= 0 || num1 > 10 || num2 >= 0 || num2 > 10 {
+	if num1 < 1 || num1 > 10 || num2 < 1 || num2 > 10 {
 		return false
 	}
 	return true
@@ -34,7 +34,7 @@ func findOperator(str string) (rune, error) {
 			if v == vv {
 				countOper++
 				if countOper == 2 {
-					return 0, errors.New("too much operators")
+					return 0, lib.ErrTooMuchOperators
 				}
 				operator = vv
 			}
@@ -42,7 +42,7 @@ func findOperator(str string) (rune, error) {
 	}
 
 	if operator == 0 {
-		return 0, errors.New("not founnd this operator")
+		return 0, lib.ErrNotFoundOperator
 	}
 	return operator, nil
 }

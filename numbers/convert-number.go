@@ -1,10 +1,12 @@
 package numbers
 
-import "errors"
+import (
+	"calc-intega-roman/lib"
+)
 
 func NaturalNumberToRoman(num int) (string, error) {
 	if num < 0 {
-		return "", errors.New("number could not be negative or zero")
+		return "", lib.ErrNumberNotNegativeOrZero
 	}
 
 	valueRoman := ""
@@ -26,7 +28,7 @@ func NaturalNumberToRoman(num int) (string, error) {
 
 func RomanToNaturalNumber(str string) (int, error) {
 	if str == "" {
-		return 0, errors.New("string is empty")
+		return 0, lib.ErrStringIsEmpty
 	}
 
 	number := 0

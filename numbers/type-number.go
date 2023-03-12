@@ -1,10 +1,12 @@
 package numbers
 
-import "errors"
+import (
+	"calc-intega-roman/lib"
+)
 
 func TypeNumber(str string) (string, error) {
 	if str == "" {
-		return "", errors.New("string is empty")
+		return "", lib.ErrStringIsEmpty
 	}
 
 	countNumber := 0
@@ -16,7 +18,7 @@ func TypeNumber(str string) (string, error) {
 		break
 	}
 	if countNumber == len(str) {
-		return "decimal", nil
+		return lib.DecimalType, nil
 	}
 
 	countRoman := 0
@@ -30,8 +32,8 @@ func TypeNumber(str string) (string, error) {
 		}
 	}
 	if countRoman == len(str) {
-		return "roman", nil
+		return lib.RomanType, nil
 	}
 
-	return "", errors.New("not same type of number,\n put decimal natrual number or roman number")
+	return "", lib.ErrNotSameTypeOfNumber
 }
