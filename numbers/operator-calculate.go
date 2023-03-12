@@ -1,21 +1,18 @@
 package numbers
 
-import "strconv"
+import "errors"
 
-func CalculateByOperator(slice []string) int {
-	number1, _ := strconv.Atoi(slice[0])
-	number2, _ := strconv.Atoi(slice[0])
-
-	switch slice[len(slice)-1] {
+func CalculateTwoOperandByOperator(number1 int, number2 int, operator string) (int, error) {
+	switch operator {
 	case "+":
-		return number1 + number2
+		return number1 + number2, nil
 	case "-":
-		return number1 - number2
+		return number1 - number2, nil
 	case "*":
-		return number1 * number2
+		return number1 * number2, nil
 	case "/":
-		return number1 / number2
+		return number1 / number2, nil
+	default:
+		return 0, errors.New("not found such operator (input: +,-,*,/)")
 	}
-
-	return -999999999999999999
 }
