@@ -53,6 +53,10 @@ func main() {
 				case "decimal":
 					number1, _ := strconv.Atoi(arguments[0])
 					number2, _ := strconv.Atoi(arguments[1])
+					if !numbers.CheckArgumentsFromOneToTen(number1, number2) {
+						shutdownAndShowError(errors.New("numbers must be form 1 to 10"))
+					}
+
 					result, err := numbers.CalculateTwoOperandByOperator(number1, number2, arguments[2])
 					if err != nil {
 						shutdownAndShowError(err)
@@ -66,6 +70,9 @@ func main() {
 					number2, err := numbers.RomanToNaturalNumber(arguments[1])
 					if err != nil {
 						shutdownAndShowError(err)
+					}
+					if !numbers.CheckArgumentsFromOneToTen(number1, number2) {
+						shutdownAndShowError(errors.New("numbers must be form I to X"))
 					}
 
 					result, err := numbers.CalculateTwoOperandByOperator(number1, number2, arguments[2])

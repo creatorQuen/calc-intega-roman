@@ -5,10 +5,16 @@ import (
 	"strings"
 )
 
+func CheckArgumentsFromOneToTen(num1 int, num2 int) bool {
+	if num1 <= 0 || num1 > 10 || num2 >= 0 || num2 > 10 {
+		return false
+	}
+	return true
+}
+
 func SeparteArgumentsByOperator(str string) ([]string, error) {
 	result := strings.ReplaceAll(str, " ", "")
 	operator, err := findOperator(str)
-
 	if err != nil {
 		return nil, err
 	}
