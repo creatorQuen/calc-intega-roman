@@ -20,7 +20,7 @@ func main() {
 	readerIn := bufio.NewReader(os.Stdin)
 
 	for {
-		fmt.Println("--Calculate two numbers from 0 to 10,\n--or roman number from I to X (operations: +,-,*,/)")
+		fmt.Println("--Calculate two numbers from 0 to 10,\n--or roman number from I to X (operations: +,-,*,/)\n--press cnt+C or write 'exit' to escape")
 		inputString, _ := readerIn.ReadString('\n')
 		//inputString := "1 + 1 + 1"
 		//inputString := "10 = 10"
@@ -28,7 +28,10 @@ func main() {
 		if inputString == "exit" || inputString == "quit" {
 			os.Exit(0)
 		}
-
+		if inputString == "" {
+			fmt.Println("empty string\n")
+			continue
+		}
 		arguments, err := numbers.SeparteArgumentsByOperator(inputString)
 		if err != nil {
 			shutdownAndShowError(err)
@@ -69,6 +72,10 @@ func main() {
 					if err != nil {
 						shutdownAndShowError(err)
 					}
+					if result <= 0 {
+						shutdownAndShowError(errors.New("in roman not have negative value or zero"))
+					}
+
 					romanValue, err := numbers.NaturalNumberToRoman(result)
 					if err != nil {
 						shutdownAndShowError(err)

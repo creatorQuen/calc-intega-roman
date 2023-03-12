@@ -35,5 +35,8 @@ func findOperator(str string) (rune, error) {
 		}
 	}
 
-	return operator, errors.New("not founnd this operator")
+	if operator == 0 {
+		return 0, errors.New("not founnd this operator")
+	}
+	return operator, nil
 }
